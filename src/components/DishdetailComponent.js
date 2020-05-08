@@ -9,7 +9,8 @@ class DishDetail extends Component {
         }
         const comm = comments.map(comment => {
             return (
-                <li key={comment.id}>
+                <div className="container">
+                <li key={comment.id} >
                     <p>{comment.comment}</p>
                     <p>-- {comment.author},
                     &nbsp;
@@ -17,9 +18,10 @@ class DishDetail extends Component {
                             year: 'numeric',
                             month: 'long',
                             day: '2-digit'
-                        }).format(new Date(comment.date))}
+                        }).format(new Date(Date.parse(comment.date)))}
                     </p>
                 </li>
+                </div>
             );
         });
         return (
@@ -60,9 +62,11 @@ class DishDetail extends Component {
         const dishItem = this.renderDish(dish)
         const commentItem = this.renderComments(dish.comments)
         return (
-            <div className='row'>
+            <div className='container'>
+                <div className="row">
                 {dishItem}
                 {commentItem}
+            </div>
             </div>
         );
     }
