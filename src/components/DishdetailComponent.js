@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody, Modal,ModalHeader, ModalBody,
     CardTitle, Breadcrumb, BreadcrumbItem,Button, Row, Col, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
@@ -92,6 +92,11 @@ class CommentForm extends Component {
         if (dish != null) 
             return (
                 <div className='col-12 col-md-5 m-1'>
+                    <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
                     <Card>
                     <CardImg top src={baseUrl + dish.image} alt={dish.name} />
                         <CardBody>
@@ -99,6 +104,7 @@ class CommentForm extends Component {
                             <CardText>{dish.description}</CardText>
                         </CardBody>
                     </Card>
+                    </FadeTransform>
                 </div>
             );
         else
@@ -114,6 +120,7 @@ class CommentForm extends Component {
         }
         const comm = comments.map(comment => {
             return (
+                <Fade in>
                 <div className="container">
                 <li key={comment.id} >
                 <p>User Rating: {comment.rating}</p>
@@ -128,13 +135,16 @@ class CommentForm extends Component {
                     </p>
                 </li>
                 </div>
+                </Fade>
             );
         });
         return (
             <div className='col-12 col-md-5 m-1'>
                 <h4> Comments </h4>
                 <ul className='list-unstyled'>
+                <Stagger in>
                     {comm}
+                    </Stagger>
                 </ul>
                 <CommentForm dishId={dishId} postComment={postComment} />
             </div>
